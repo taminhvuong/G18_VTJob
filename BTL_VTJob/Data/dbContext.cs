@@ -12,9 +12,13 @@ namespace BTL_VTJob.Data
 
         public DbSet<NguoiDung> Nguoidung
         { get; set; } = default!;
+        public DbSet<DoanhNghiep> DoanhNghiep
+        { get; set; } = default!;
         public DbSet<BaiTuyenDung> BaiTuyenDung
         { get; set; } = default!;
         public DbSet<CVUngTuyen> CVUngTuyen
+        { get; set; } = default!;
+        public DbSet<LoaiJob> LoaiJob
         { get; set; } = default!;
     }
 }

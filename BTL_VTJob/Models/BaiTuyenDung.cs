@@ -6,18 +6,48 @@ namespace BTL_VTJob.Models
     public class BaiTuyenDung
     {
         [Key]
-        public string MaBai { get; set; }
-        public string TieuDe { get; set; }
-        public string LoaiCongViec { get; set; }
-        public int SoLuongTuyen { get; set; }
-        public float MucLuong { get; set; }
-        public string MoTaCV { get; set; }
-        public string YeuCau { get; set; }
-        public string QuyenLoi { get; set; }
+        [Required]
+        [Display(Name = ("Mã bài viết"))]
+        public string? MaBai { get; set; }
+
+        [Display(Name = ("Tiêu đề"))]
+        [Required]
+        public string? TieuDe { get; set; }
+
+        [Display(Name = ("Số lượng tuyển dụng"))]
+        [Required]
+        public Int32 SoLuongTuyen { get; set; }
+
+        [Display(Name = ("Mức lương"))]
+        [Required]
+        public string MucLuong { get; set; }
+        [Display(Name = ("Mô tả công việc"))]
+        public string? MoTaCV { get; set; }
+
+        [Display(Name = ("Yêu cầu công việc"))]
+        [Required]
+        public string? YeuCau { get; set; }
+
+        [Display(Name = ("Quyên lợi"))]
+        [Required]
+        public string? QuyenLoi { get; set; }
+
+        [Display(Name = ("Ngày đăng"))]
         public DateTime NgayDang { get; set;}
+
+        [Display(Name = ("Hạn nộp CV"))]
+        [Required]
         public DateTime HanNopCV { get; set; }
+        public int UserID { get; set; }
         [ForeignKey(nameof(UserID))]
-        public string UserID { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
+
+        [Display(Name = ("Loại Job"))]
+        [Required]
+        public int IdLoaiJob { get; set; }
+        
+        [ForeignKey(nameof(IdLoaiJob))]
+        public virtual LoaiJob LoaiCongViec { get; set; }
+
     }
 }

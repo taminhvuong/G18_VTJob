@@ -1,0 +1,99 @@
+﻿@model BTL_VTJob.Models.BaiTuyenDung
+
+@{
+    ViewData["Title"] = "UpdateBaiTuyenDung";
+}
+
+<h2 class="text-center">Update Bài Tuyển Dụng</h2>
+
+<hr />
+<div class="row">
+    <div class="col">
+     </div>
+    <div class="col-md-6">
+        <form asp-action="UpdateBaiTuyenDung">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaBai" />
+            <div class="form-group">
+                <label asp-for="TieuDe" class="control-label"></label>
+                <input asp-for="TieuDe" class="form-control" />
+                <span asp-validation-for="TieuDe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuongTuyen" class="control-label"></label>
+                <input asp-for="SoLuongTuyen" class="form-control" />
+                <span asp-validation-for="SoLuongTuyen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MucLuong" class="control-label"></label>
+                <input asp-for="MucLuong" class="form-control" />
+                <span asp-validation-for="MucLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTaCV" class="control-label"></label>
+                <textarea asp-for="MoTaCV" class="form-control"></textarea>
+                <span asp-validation-for="MoTaCV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YeuCau" class="control-label"></label>
+                <textarea asp-for="YeuCau" class="form-control"></textarea>
+                <span asp-validation-for="YeuCau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuyenLoi" class="control-label"></label>
+                <textarea asp-for="QuyenLoi" class="form-control"></textarea>
+                <span asp-validation-for="QuyenLoi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HanNopCV" class="control-label"></label>
+                <input asp-for="HanNopCV" class="form-control" />
+                <span asp-validation-for="HanNopCV" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="IdLoaiJob" class="control-label"></label>
+                <select asp-for="IdLoaiJob" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetList">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<a href="~/lib/jquery/dist/jquery.min.map"></a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var listNameJob = null;
+    var dropdown = $('#IdLoaiJob');
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/BaiTuyenDung/GetDSLoaiJob',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                listNameJob = response;
+                console.log(response)
+                // Đổ dữ liệu vào dropdownlist
+                $.each(response, function (index, item) {
+                    dropdown.append($('<option></option>').val(item.id).text(item.tenLoaiJob));
+                });
+            }
+        });
+
+
+    })
+
+</script>

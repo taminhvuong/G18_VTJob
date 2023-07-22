@@ -1,0 +1,253 @@
+﻿@model BTL_VTJob.ViewModel.RegisterVM
+
+@{
+    ViewData["Title"] = "View";
+}
+
+
+<h3 class="text-center">Đăng ký </h3>
+@Html.ValidationSummary( true , "" ,new {@class="text-danger"})
+<hr />
+<div class="row">
+    <div class="col-md-7">
+
+    </div>
+    <div class="col-md-5 ">
+        @using (Html.BeginForm("Index", "DangKy", FormMethod.Post, new
+        {
+            @class="form-contact",
+            @novalidate = "novalidate"
+        }))
+        {
+            @Html.AntiForgeryToken()
+                <div>
+                   
+                    <div class="form-group">
+                        <label asp-for="Hoten" class="control-label"></label>
+                    @Html.EditorFor(model=>model.Hoten,new {
+                        htmlAttributes=new
+                        {
+                        @class = "form-control valid",
+                        @type = "text",
+                        @id = "hoten",
+                        @name = "hoten",
+                        @required= "true"
+                        }
+                        })
+                    @Html.ValidationMessageFor(model=>model.Hoten,
+                "",
+                new {@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                    @Html.EditorFor(model=>model.Email,new {
+                        htmlAttributes=new
+                        {
+                        @class = "form-control valid",
+                        @type = "Email",
+                        @id = "email",
+                        @name = "email",
+                        @required= "true"
+                        }
+                        })
+                    @Html.ValidationMessageFor(model=>model.Email,
+                "",
+                new {@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoDT" class="control-label"></label>
+                    @Html.EditorFor(model=>model.SoDT,new {
+                        htmlAttributes=new
+                        {
+                        @class = "form-control valid",
+                        @type = "text",
+                        @id = "sodt",
+                        @name = "sodt",
+                        @required= "true"
+                        }
+                        })
+                    @Html.ValidationMessageFor(model=>model.SoDT,
+                "",
+                new {@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MatKhau" class="control-label"></label>
+                    @Html.EditorFor(model=>model.MatKhau,new {
+                        htmlAttributes=new
+                        {
+                        @class = "form-control valid",
+                        @type = "password",
+                        @id = "matkhau",
+                        @name = "matkhau",
+                        @required= "true"
+                        }
+                        })
+                    @Html.ValidationMessageFor(model=>model.MatKhau,
+                "",
+                new {@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MatKhauXacNhan" class="control-label"></label>
+                    @Html.EditorFor(model=>model.MatKhauXacNhan,new {
+                        htmlAttributes=new
+                        {
+                        @class = "form-control valid",
+                        @type = "password",
+                        @id = "xacnhanmatkhau",
+                        @name = "xacnhanmatkhau",
+                        @required= "true"
+                        }
+                        })
+                    @Html.ValidationMessageFor(model=>model.MatKhauXacNhan,
+                "",
+                new {@class="text-danger"})
+                    </div>
+                    <div class="form-group">
+                        Bạn là nhà doanh nghiệp?<br/>
+                    @Html.DropDownListFor(model=>model.isProvider ,new SelectList(Enum.GetValues(typeof(BTL_VTJob.ViewModel.RegisterVM.Quyen))),null,new {
+                htmlAttributes=new{
+                @type="select",
+                @id= "isProvider",               
+                }
+                })
+                        <span asp-validation-for="isProvider" class="text-danger"></span>
+                    </div>
+
+                    <div id="Thongtincongty">
+                        <div id ="TenCTProvider">
+                            <div class="form-group" >
+                                    <label class="control-label">Tên doanh nghiep</label>
+                            @Html.EditorFor(model=>model.InfoProvider.TenCT,new {
+                                    htmlAttributes=new{
+                                        @class= "form-control valid",
+                                        @type= "text",
+                                        @id= "tenct",
+                                        @name= "tenct",
+                        
+                                    }
+                                })
+                            @Html.ValidationMessageFor(model=>model.InfoProvider.TenCT,
+                                        "",
+                                        new { @class="text-danger"} )
+                    
+
+                            </div>
+                        </div>
+                        <div id="MoTaProvider">
+                            <div class="form-group" >
+                                <label  class="control-label">Thông tin doanh nghiệp</label>
+
+                            @Html.EditorFor(model=>model.InfoProvider.MoTa,new {
+                                    htmlAttributes=new
+                                    {
+                                        @class = "form-control valid",
+                                        @type = "textarea",
+                                        @id = "mota",
+                                        @name = "mota",
+                       
+                                    }
+                                    })
+                            @Html.ValidationMessageFor(model=>model.InfoProvider.MoTa,
+                                    "",
+                                    new {@class="text-danger"})
+
+                            </div>
+                        </div>
+                        <div id="DiaChiProvider">
+                            <div class="form-group" >
+                                <label class="control-label">Địa chỉ</label>
+                            @Html.EditorFor(model=>model.InfoProvider.DiaChi,new {
+                                    htmlAttributes =  new
+                                    {
+                                        @class= "form-control valid",
+                                        @type= "text",
+                                        @id= "diachi",
+                                        @name= "diachi",
+                                        
+                                    }
+                                })
+                            @Html.ValidationMessageFor(model=>model.InfoProvider.DiaChi,
+                                    "",
+                                    new {@class="text-danger"})
+
+                            </div>
+
+                        </div>
+                    <div id="AnhProvider">
+                        <div class="form-group">
+                            <label class="control-label">Ảnh</label>
+                            @Html.EditorFor(model=>model.InfoProvider.Anh,new {
+                            htmlAttributes =  new
+                            {
+                            @class= "form-control valid",
+                            @type= "file",
+                            @id= "anh",
+                            @name= "anh",
+                        
+                            }
+                            })
+                                @Html.ValidationMessageFor(model=>model.InfoProvider.Anh,
+                            "",
+                            new {@class="text-danger"})
+
+                        </div>
+
+                    </div>
+                    </div>
+
+
+                    <div class="form-group text-center m-3">
+                        <input type="submit" value="ĐĂNG KÝ" class="btn btn-primary w-50 " />
+                    </div>
+                </div>
+        }
+        
+      
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<a href="~/lib/jquery/dist/jquery.min.map"></a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        if ($('#isProvider').val() == "User") {
+        $('#TenCTProvider').hide();
+        $('#AnhProvider').hide();
+        $('#MoTaProvider').hide();
+        $('#DiaChiProvider').hide();
+        }
+        else{
+        $('#TenCTProvider').show();
+        $('#MoTaProvider').show();
+        $('#DiaChiProvider').show();
+        $('#AnhProvider').show();
+        }
+       
+        $('#isProvider').change(function () {
+            var selectedValue = jQuery(this).val();
+
+        if (selectedValue != "User") {
+               
+                $('#TenCTProvider').show();
+                $('#MoTaProvider').show();
+                $('#DiaChiProvider').show();
+                $('#AnhProvider').show();
+                
+            }
+            else {
+               
+                $('#TenCTProvider').hide();
+                $('#MoTaProvider').hide();
+                $('#DiaChiProvider').hide();
+                $('#AnhProvider').hide();
+            }
+        });
+    })
+
+</script>

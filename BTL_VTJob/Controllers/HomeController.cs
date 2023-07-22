@@ -15,6 +15,7 @@ namespace BTL_VTJob.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

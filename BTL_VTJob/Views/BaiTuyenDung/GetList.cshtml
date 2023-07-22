@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BTL_VTJob.Models.BaiTuyenDung>
+
+@{
+    ViewData["Title"] = "BaiUngTuyenView";
+}
+
+<h2>Quản lý bài đăng</h2>
+
+<p>
+    <a asp-action="CreateBaiTuyenDung" asp-controller="BaiTuyenDung">Create New</a>
+</p>
+<div class="row">
+    
+    
+        @foreach (var item in Model)
+        {<div class="col-sm-4">
+            
+                <div>
+                    @item.TieuDe
+                </div>
+                <div>
+                    Số lượng: @item.SoLuongTuyen
+                </div>
+                <div>
+                  Mức lương: @item.MucLuong
+                </div>
+               
+                <div>
+                   Ngày đăng:@item.NgayDang
+                </div>
+                <div>
+                   Hạn nộp CV: @item.HanNopCV
+                </div>
+                <div>
+                   Loại công việc: @item.LoaiCongViec.TenLoaiJob
+                </div>
+                @*<div>
+                   @item.NguoiDung.Hoten
+                </div>*@
+                <div>
+                    <a asp-action="UpdateBaiTuyenDung" asp-route-id="@item.MaBai">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaBai">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaBai">Delete</a>
+                </div>
+            
+            </div>
+        }
+   
+
+</div>
+
+    
