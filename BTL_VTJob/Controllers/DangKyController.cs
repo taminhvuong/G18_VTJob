@@ -117,8 +117,8 @@ namespace BTL_VTJob.Controllers
                     if (file != null && file.Length > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
-                        doanhnghiep.Anh = "~/Upload/" + fileName;
-                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Upload", fileName);
+                        doanhnghiep.Anh = fileName;
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             file.CopyTo(stream);
@@ -131,11 +131,58 @@ namespace BTL_VTJob.Controllers
 
                     }
                     trans.Commit();
-                    return View("~/Views/Home/Index.cshtml");
+                    return View("~/Views/Dangky/Login.cshtml");
                 }
 
 
            
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string email,string  matkhau)
+        {
+            var user = _context.Nguoidung.SingleOrDefault(u => u.Email == email);
+                       if (user != null)
+            {
+            if (user.Email == email && user.MatKhau == matkhau)
+            {
+                HttpContext.Session.SetString("Email", email);
+                    HttpContext.Session.SetString("Quyen", user.quyen);
+                    HttpContext.Session.SetString("HoTen", user.Hoten);
+
+                    HttpContext.Session.SetInt32("UserID", user.UserID);
+                    ViewBag.Email = email;
+                return RedirectToAction("Index", "Home");
+            }
+            else if ( email==null || matkhau == null)
+            {
+                
+                ViewBag.checkMatKhau = "Nhập đủ thông tin";
+                return View(); ;
+            }
+            else if (user.MatKhau != matkhau )
+            {
+
+                ViewBag.checkMatKhau = "Sai mật khẩu";
+                return View(); ;
+            }
+
+            }
+            else {
+                ViewBag.checkMatKhau = "User không tồn tại";
+                return View();
+            }
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login","DangKy");
         }
 
         public IActionResult Privacy()

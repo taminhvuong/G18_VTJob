@@ -38,9 +38,9 @@ namespace BTL_VTJob.Models
         [Display(Name = ("Hạn nộp CV"))]
         [Required]
         public DateTime HanNopCV { get; set; }
-        public int UserID { get; set; }
+       /* public int UserID { get; set; }
         [ForeignKey(nameof(UserID))]
-        public virtual NguoiDung NguoiDung { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }*/
 
         [Display(Name = ("Loại Job"))]
         [Required]
@@ -48,6 +48,12 @@ namespace BTL_VTJob.Models
         
         [ForeignKey(nameof(IdLoaiJob))]
         public virtual LoaiJob LoaiCongViec { get; set; }
+        [Display(Name = ("Doanh nghiệp"))]
+        [Required]
+        public int IdDoanhNghiep { get; set; }
+
+        [ForeignKey(nameof(IdDoanhNghiep))]
+        public virtual DoanhNghiep DoanhNghiep { get; set; }
 
     }
 }

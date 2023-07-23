@@ -2,6 +2,8 @@
 using BTL_VTJob.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,32 +22,52 @@ namespace BTL_VTJob.Controllers
             _context=context;
         }
         // GET: BaiUngTuyenController
+
         public async Task<IActionResult> GetList()
         {
-            var list = _context.BaiTuyenDung.Include(p => p.NguoiDung).Include(p => p.LoaiCongViec);
-            return View(await list.ToListAsync());
+            /* string userID = HttpContext.Session.GetString("Email");
+             var user = _context.Nguoidung.Where(u=>u.Email==userID);
+             if(user != null)
+             {
+               */
+            string email = HttpContext.Session.GetString("Email");
+
+            var user = await _context.Nguoidung.Where(u => u.Email == email).FirstOrDefaultAsync();
+            var doanhNghiep = await _context.DoanhNghiep.Where(u => u.UserID == user.UserID).FirstOrDefaultAsync();
+
+            var list = _context.BaiTuyenDung.Where(u=>u.IdDoanhNghiep==doanhNghiep.Id).Include(p => p.DoanhNghiep).Include(p => p.LoaiCongViec);
+           
+                return View(await list.ToListAsync());
+           /* }
+            * 
+            return Redirect("/home");*/
             
         }
         
         public IActionResult CreateBaiTuyenDung()
         {
            
+
+            
             return View(new BaiTuyenDung());
 
         }
+      
         [HttpPost]
         public async Task<IActionResult> CreateBaiTuyenDung(BaiTuyenDung baiTuyenDung)
         {
-            var user =await _context.Nguoidung.Where(u=>u.UserID==2).FirstOrDefaultAsync();
+            string email = HttpContext.Session.GetString("Email");
+            var user = await _context.Nguoidung.Where(u => u.Email == email).FirstOrDefaultAsync();
+            var doanhNghiep = await _context.DoanhNghiep.Where(u => u.UserID == user.UserID).FirstOrDefaultAsync();
 
-            baiTuyenDung.UserID = 2;
+            baiTuyenDung.IdDoanhNghiep =doanhNghiep.Id ;
             /*var loaiJob= await _context.LoaiJob.Where(u => u.Id== baiTuyenDung.LoaiCongViec.Id).FirstOrDefaultAsync();*/
             baiTuyenDung.LoaiCongViec = baiTuyenDung.LoaiCongViec;
-            baiTuyenDung.NguoiDung = user;
+            baiTuyenDung.DoanhNghiep = doanhNghiep;
             baiTuyenDung.NgayDang = DateTime.Now;
             _context.BaiTuyenDung.Add(baiTuyenDung);
             _context.SaveChanges();
-            return View();
+          return Redirect("GetList"); ;
 
         }
         public async Task<IActionResult> GetDSLoaiJob()
@@ -56,10 +78,11 @@ namespace BTL_VTJob.Controllers
                 return Json(dsLoaiJob);
 
         }
+      
         [HttpGet]
         public async Task<IActionResult> UpdateBaiTuyenDung(string id)
         {
-            var baiTuyenDung= _context.BaiTuyenDung.Where(p=>p.MaBai==id).Include(p => p.NguoiDung).Include(p => p.LoaiCongViec).FirstOrDefault();
+            var baiTuyenDung= _context.BaiTuyenDung.Where(p=>p.MaBai==id).Include(p => p.DoanhNghiep).Include(p => p.LoaiCongViec).FirstOrDefault();
          
 
 
@@ -95,6 +118,20 @@ namespace BTL_VTJob.Controllers
             _context.BaiTuyenDung.Remove(bai);
             _context.SaveChanges();
             return Redirect("GetList");
+
+        }
+
+        public async Task<IActionResult> DetailJob(string id)
+        {
+            var detaiJob=_context.BaiTuyenDung.Where(u=>u.MaBai == id).Include(p=>p.DoanhNghiep).Include(p => p.LoaiCongViec).FirstOrDefault();
+            /*var user = await _context.Nguoidung.Where(u => u.UserID == detaiJob.UserID).FirstOrDefaultAsync();
+            var doanhNghiep = await _context.DoanhNghiep.Where(u => u.UserID == user.UserID).FirstOrDefaultAsync();
+            ViewBag.Anh = doanhNghiep.Anh;
+            ViewBag.ThongTinDN = doanhNghiep.MoTa;
+            ViewBag.TenDN = doanhNghiep.TenCT;
+            ViewBag.DiaChi = doanhNghiep.DiaChi;*/
+
+            return View(detaiJob);
 
         }
 

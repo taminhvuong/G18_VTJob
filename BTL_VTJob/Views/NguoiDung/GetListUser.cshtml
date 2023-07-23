@@ -4,56 +4,92 @@
     ViewData["Title"] = "GetListUser";
 }
 
-<h1>GetListUser</h1>
+<section class="site-section py-5">
+    <div class="container-lg">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Hoten)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoDT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MatKhau)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.quyen)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hoten)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MatKhau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.quyen)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        
+        <ul class="job-listings mb-5">
+            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+
+                
+
+                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                        <h5>Họ tên</h5>
+                    </div>
+                    <div class="job-listing-position mb-3 mb-sm-0 custom-width w-50 mx-2">
+                        <h5>Email</h5>
+
+                    </div>
+                    <div class="job-listing-position mb-3 mb-sm-0 custom-width mx-2 w-25">
+                        <h5> Số điện thoại </h5>
+                    </div>
+
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="job-listings mb-5">
+            @foreach (var item in Model)
+            {
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+
+                  
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2> @item.Hoten</h2>
+                            <strong>@item.quyen</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-50 mx-2">
+                            <span></span>@item.Email
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width mx-2 w-25">
+                            <span></span>@item.SoDT
+                        </div>
+
+                        @* <div class="job-listing-meta mx-2">
+                    <span class="badge badge-success">Full Time</span>
+                    </div>*@
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <a asp-action="UpdateBaiTuyenDung" asp-controller="BaituyenDung" asp-route-id="@item.UserID" class="btn btn-primary ">Edit</a>
+
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <a asp-action="Details" asp-controller="BaituyenDung" asp-route-id="@item.UserID" class="btn btn-primary">Details</a>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+
+                            <a asp-action="Delete" asp-route-id="@item.UserID" class="btn btn-primary ">Delete</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div class="row pagination-wrap">
+            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+                <span>Showing 1-7 Of 43,167 Jobs</span>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <div class="custom-pagination ml-auto">
+                    <a href="#" class="prev">Prev</a>
+                    <div class="d-inline-block">
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                    </div>
+                    <a href="#" class="next">Next</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+

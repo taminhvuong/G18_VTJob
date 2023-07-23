@@ -23,7 +23,12 @@ namespace BTL_VTJob.Controllers
             return View(await list.ToListAsync());
 
         }
+        public async Task<IActionResult> GetListUser()
+        {
+            var list = await _context.Nguoidung.ToListAsync();
+            return View( list);
 
+        }
         public IActionResult Privacy()
         {
             return View();

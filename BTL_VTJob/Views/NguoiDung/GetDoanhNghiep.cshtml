@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+               Logo
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TenCT)
             </th>
             <th>
@@ -21,11 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DiaChi)
             </th>
+          
             <th>
-                @Html.DisplayNameFor(model => model.Anh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NguoiDung.Hoten)
+                @Html.DisplayNameFor(model => model.NguoiDung.Email)
             </th>
             <th></th>
         </tr>
@@ -33,6 +34,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    <img src="~/images/@item.Anh" alt="" class="img-fluid" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TenCT)
             </td>
@@ -42,14 +46,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DiaChi)
             </td>
-            <td>
-                    <img src="@item.Anh" alt="" class="img-fluid" style="width:70px; height:70px" />
-            </td>
+          
             <td>
                 @Html.DisplayFor(modelItem => item.NguoiDung.Hoten)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

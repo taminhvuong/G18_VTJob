@@ -4,49 +4,109 @@
     ViewData["Title"] = "BaiUngTuyenView";
 }
 
-<h2>Quản lý bài đăng</h2>
+<section class="site-section py-5">
+    <div class="container-lg">
 
-<p>
-    <a asp-action="CreateBaiTuyenDung" asp-controller="BaiTuyenDung">Create New</a>
-</p>
-<div class="row">
-    
-    
-        @foreach (var item in Model)
-        {<div class="col-sm-4">
-            
-                <div>
-                    @item.TieuDe
-                </div>
-                <div>
-                    Số lượng: @item.SoLuongTuyen
-                </div>
-                <div>
-                  Mức lương: @item.MucLuong
-                </div>
-               
-                <div>
-                   Ngày đăng:@item.NgayDang
-                </div>
-                <div>
-                   Hạn nộp CV: @item.HanNopCV
-                </div>
-                <div>
-                   Loại công việc: @item.LoaiCongViec.TenLoaiJob
-                </div>
-                @*<div>
-                   @item.NguoiDung.Hoten
-                </div>*@
-                <div>
-                    <a asp-action="UpdateBaiTuyenDung" asp-route-id="@item.MaBai">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaBai">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaBai">Delete</a>
-                </div>
-            
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-7 text-center">
+                <h2 class="section-title mb-2">Job Listed</h2>
             </div>
-        }
-   
+        </div>
+        <ul class="job-listings mb-5">
+            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
 
-</div>
+                <div class="job-listing-logo">
+                </div>
 
+                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                        <h5>Tên Job</h5>
+                    </div>
+                    <div class="job-listing-position mb-3 mb-sm-0 custom-width w-25 mx-2">
+                        <h5>Mức lương</h5>
+
+                    </div>
+                    <div class="job-listing-position mb-3 mb-sm-0 custom-width mx-2 w-25">
+                        <h5> Số lượng tuyển </h5>
+                    </div>
+                    <div class="job-listing-position mb-3 mb-sm-0 custom-width mx-2 w-25">
+                        <h5>Ngày đăng</h5>
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width mx-2 w-25">
+                        <h5>Hạn nộp</h5>
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="job-listings mb-5">
+            @foreach (var item in Model)
+            {
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    
+                    <div class="job-listing-logo">
+                        <img src="~/images/@item.DoanhNghiep.Anh" alt="Free Website Template by Free-Template.co" class="img-fluid">
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2> @item.TieuDe</h2>
+                            <strong>Loại công việc: @item.LoaiCongViec.TenLoaiJob</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25 mx-2">
+                            <span></span>@item.MucLuong
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width mx-2 w-25">
+                            <span></span>@item.SoLuongTuyen
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width mx-2 w-25">
+                            <span></span>@item.NgayDang
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width mx-2 w-25">
+                            <span></span>@item.HanNopCV
+                        </div>
+                        @* <div class="job-listing-meta mx-2">
+                    <span class="badge badge-success">Full Time</span>
+                    </div>*@
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <a asp-action="UpdateBaiTuyenDung" asp-controller="BaituyenDung" asp-route-id="@item.MaBai" class="btn btn-primary ">Edit</a>
+
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <a asp-action="Details" asp-controller="BaituyenDung" asp-route-id="@item.MaBai" class="btn btn-primary">Details</a>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+
+                            <a asp-action="Delete" asp-route-id="@item.MaBai" class="btn btn-primary ">Delete</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div class="row pagination-wrap">
+            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+                <span>Showing 1-7 Of 43,167 Jobs</span>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <div class="custom-pagination ml-auto">
+                    <a href="#" class="prev">Prev</a>
+                    <div class="d-inline-block">
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                    </div>
+                    <a href="#" class="next">Next</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
     
